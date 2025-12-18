@@ -1,12 +1,10 @@
-// src/types.ts
-
-// Tipos para Perícias
+// 1. Tipos para Perícias
 export interface SkillItem {
   name: string;
   value: number;
 }
 
-// Tipos para Ataques
+// 2. Tipos para Ataques
 export interface AttackItem {
   name: string;
   damage: string;
@@ -14,6 +12,18 @@ export interface AttackItem {
   critical: string;
 }
 
+// 3. Tipos para Redução de Dano (RD)
+export interface RdSource {
+  name: string;
+  value: number;
+}
+
+export interface RdData {
+  sources: RdSource[];
+  blockBonus: number;
+}
+
+// 4. Tipos para Inventário
 export type ItemType = 'CONSUMIVEL' | 'EQUIPAMENTO' | 'OUTRO';
 
 export interface InventoryItem {
@@ -24,21 +34,22 @@ export interface InventoryItem {
   size: number;
   quantity: number;
   type: ItemType;
-  equipped?: boolean; // <--- NOVO CAMPO OPCIONAL
+  equipped?: boolean;
 }
 
+// 5. Tipos para Notas de Investigação (Post-its)
 export interface NoteItem {
   id: string;
   x: number;
   y: number;
   text: string;
-  imageUrl?: string; // <--- NOVO CAMPO OPCIONAL
+  imageUrl?: string;
   color: string;
   width: number;
   height: number;
 }
 
-// Tipos para Poderes (Habilidades/Proezas)
+// 6. Tipos para Poderes (Habilidades/Proezas)
 export type PowerType = 'Ação' | 'Reação' | 'Passivo' | 'Técnica';
 
 export interface PowerItem {
@@ -48,7 +59,7 @@ export interface PowerItem {
   description: string;
 }
 
-// O Objeto Principal do Personagem
+// 7. O Objeto Principal do Personagem (Raiz da Ficha)
 export interface CharacterData {
   name: string;
   playerName: string;
@@ -64,7 +75,8 @@ export interface CharacterData {
   hp: { current: number; max: number };
   determination: { current: number; max: number };
   
-  rd: number;
+  // rd corrigido de number para RdData (objeto)
+  rd: RdData;
   block: number;
   
   skills: SkillItem[];
@@ -74,10 +86,9 @@ export interface CharacterData {
   abilities: PowerItem[];
   feats: PowerItem[];
   
-  // Futuros campos (já preparando terreno)
-  notes: string; // Texto corrido de Anotações Gerais
-  origin: string; // Texto corrido da Origem
-  investigationNotes: NoteItem[]; // Array de post-its
-  inventory: InventoryItem[]; // Itens do inventário
-  credits: number; // Créditos disponíveis
+  notes: string;
+  origin: string;
+  investigationNotes: NoteItem[];
+  inventory: InventoryItem[];
+  credits: number;
 }

@@ -4,13 +4,18 @@ import { useCharacterStore } from '../../../stores/characterStore';
 
 const store = useCharacterStore();
 
+// Cálculo seguro de RD Total
 const totalRd = computed(() => {
-  const sources = store.char?.rd?.sources || [];
-  return sources.reduce((acc, source) => acc + (Number(source.value) || 0), 0);
+  // Garantimos que tratamos como array mesmo se o estado estiver inconsistente
+  const rdData = store.char?.rd as any;
+  const sources = rdData?.sources || [];
+  return sources.reduce((acc: number, source: any) => acc + (Number(source.value) || 0), 0);
 });
 
+// Cálculo seguro de Bloqueio Final
 const finalBlock = computed(() => {
-  const bonus = Number(store.char?.rd?.blockBonus) || 0;
+  const rdData = store.char?.rd as any;
+  const bonus = Number(rdData?.blockBonus) || 0;
   return totalRd.value + bonus;
 });
 </script>
@@ -24,16 +29,20 @@ const finalBlock = computed(() => {
     </div>
 
     <div class="scroll-area">
-      <div v-if="!store.char?.rd?.sources?.length" class="empty-state">
+      <div v-if="!(store.char.rd as any)?.sources?.length" class="empty-state">
         Sem registros
       </div>
 
-      <div v-for="(source, index) in store.char?.rd?.sources" :key="index" class="source-row">
+      <div 
+        v-for="(source, index) in (store.char.rd as any).sources" 
+        :key="index" 
+        class="source-row"
+      >
         <input type="text" v-model="source.name" class="source-name-input" placeholder="Fonte..." />
-        <input type="number" v-model="source.value" class="source-value-input" />
+        <input type="number" v-model.number="source.value" class="source-value-input" />
         
         <button 
-          v-if="store.char.rd.sources.length > 1"
+          v-if="(store.char.rd as any).sources.length > 1"
           class="remove-btn" 
           @click="store.removeRdSource(index)"
         >×</button>
@@ -45,7 +54,7 @@ const finalBlock = computed(() => {
     <div class="block-footer">
       <div class="block-input-group">
         <label>BÔNUS BLOQUEIO</label>
-        <input type="number" v-model="store.char.rd.blockBonus" class="block-value-input" />
+        <input type="number" v-model.number="(store.char.rd as any).blockBonus" class="block-value-input" />
       </div>
       
       <div class="block-result">
@@ -57,16 +66,17 @@ const finalBlock = computed(() => {
 </template>
 
 <style scoped lang="scss">
+/* O CSS permanece o mesmo, mantendo a integridade do layout Brutalist */
 .defense-list-container {
   width: 100%;
-  box-sizing: border-box; // Garante que padding não aumente a largura
+  box-sizing: border-box;
   background: rgba(255, 255, 255, 0.95); 
   padding: 10px;
   border-right: 2px solid #000; 
   border-bottom-right-radius: 10px;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
   font-family: 'Share Tech Mono', monospace;
-  overflow: hidden; // Corta qualquer vazamento acidental
+  overflow: hidden;
 
   h3 { 
     font-size: 0.9rem; 
@@ -86,7 +96,7 @@ const finalBlock = computed(() => {
 .scroll-area {
   max-height: 120px;
   overflow-y: auto;
-  overflow-x: hidden; // Bloqueia o scroll lateral no container de lista
+  overflow-x: hidden;
   padding-right: 2px;
   &::-webkit-scrollbar { width: 4px; }
   &::-webkit-scrollbar-thumb { background: #000; border-radius: 2px; }
@@ -100,14 +110,14 @@ const finalBlock = computed(() => {
   gap: 4px; 
   margin-bottom: 4px; 
   border-bottom: 1px dotted #ccc;
-  width: 100%; // Força a linha a respeitar o pai
+  width: 100%;
   box-sizing: border-box;
 
   &:hover .remove-btn { opacity: 1; }
 
   .source-name-input {
-    flex: 1; // Ocupa o espaço restante sem empurrar
-    min-width: 0; // Essencial para que o flex-item possa encolher
+    flex: 1;
+    min-width: 0;
     border: none; 
     background: transparent; 
     font-size: 0.75rem;
@@ -118,8 +128,8 @@ const finalBlock = computed(() => {
   }
 
   .source-value-input {
-    width: 35px; // Largura fixa para o valor
-    flex-shrink: 0; // Impede o input de valor de sumir
+    width: 35px;
+    flex-shrink: 0;
     text-align: right; 
     font-weight: bold; 
     color: #000080; 

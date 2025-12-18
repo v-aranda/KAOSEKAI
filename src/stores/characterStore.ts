@@ -48,8 +48,13 @@ export const useCharacterStore = defineStore('character', () => {
     if (found) {
       isInternalUpdate = true;
       dbId.value = found.id;
+      
+      // Reseta o estado reativo com valores padrão
       Object.assign(char, JSON.parse(JSON.stringify(defaultChar)));
+      
       const incomingData = { ...found.data };
+
+      // Lógica de Migração para evitar erro de 'number' vs 'object'
       if (typeof incomingData.rd === 'number' || !incomingData.rd?.sources) {
         const oldVal = typeof incomingData.rd === 'number' ? incomingData.rd : 0;
         incomingData.rd = {
@@ -57,7 +62,9 @@ export const useCharacterStore = defineStore('character', () => {
           blockBonus: incomingData.block || 0
         };
       }
+
       Object.assign(char, { ...defaultChar, ...incomingData });
+      
       setTimeout(() => { isInternalUpdate = false; }, 100);
       return true;
     }
@@ -110,12 +117,14 @@ export const useCharacterStore = defineStore('character', () => {
   function addItem(newItem: Omit<InventoryItem, 'id'>) {
     if (!char.inventory) char.inventory = [];
     const idx = char.inventory.findIndex(i => i.name === newItem.name && i.size === newItem.size);
+    
     if (idx !== -1) {
       char.inventory[idx].quantity += newItem.quantity;
     } else {
       char.inventory.push({ ...newItem, id: crypto.randomUUID(), equipped: false });
     }
-    return { success: true };
+    // Adicionado 'message' para satisfazer AddItemDialog.vue
+    return { success: true, message: 'Item adicionado com sucesso' };
   }
 
   function removeItem(itemId: string) {
@@ -128,7 +137,6 @@ export const useCharacterStore = defineStore('character', () => {
     if (item && item.type === 'EQUIPAMENTO') item.equipped = !item.equipped;
   }
 
-  // ⬇️ ESSA É A FUNÇÃO QUE FALTAVA
   function updateItemQuantity(itemId: string, newQuantity: number) {
     const item = char.inventory.find(i => i.id === itemId);
     if (!item) return;
@@ -139,28 +147,47 @@ export const useCharacterStore = defineStore('character', () => {
     }
   }
 
-  // --- OUTRAS ACTIONS ---
+  // --- RD & DEFESA ---
   function addRdSource() {
     if (!char.rd.sources) char.rd.sources = [];
     char.rd.sources.push({ name: 'Nova Fonte', value: 0 });
   }
-  function removeRdSource(index: number) { if (char.rd.sources.length > 1) char.rd.sources.splice(index, 1); }
+
+  function removeRdSource(index: number) {
+    if (char.rd.sources.length > 1) {
+      char.rd.sources.splice(index, 1);
+    }
+  }
+
+  // --- OUTRAS ACTIONS ---
   function addAttack() { char.attacks.push({ name: '', damage: '', graze: '', critical: '20 / x2' }); }
   function removeAttack(i: number) { char.attacks.splice(i, 1); }
   function addSkill() { char.skills.push({ name: 'Nova Perícia', value: 0 }); }
   function removeSkill(i: number) { char.skills.splice(i, 1); }
   function addCondition(name: string) { if (!char.conditions.includes(name)) char.conditions.push(name); }
   function removeCondition(index: number) { char.conditions.splice(index, 1); }
-  function addPower(target: 'abilities' | 'feats') { char[target].push({ name: '', type: 'Ação', cost: '', description: '' }); }
-  function removePower(target: 'abilities' | 'feats', i: number) { char[target].splice(i, 1); }
+  
+  function addPower(target: 'abilities' | 'feats') { 
+    char[target].push({ name: '', type: 'Ação', cost: '', description: '' }); 
+  }
+  function removePower(target: 'abilities' | 'feats', i: number) { 
+    char[target].splice(i, 1); 
+  }
+
   function addNote(imageUrl?: string) {
     if (!char.investigationNotes) char.investigationNotes = [];
-    char.investigationNotes.push({ id: crypto.randomUUID(), x: 50, y: 50, text: '', imageUrl, color: imageUrl ? '#fff' : '#ffeba7', width: 200, height: 200 });
+    char.investigationNotes.push({ 
+      id: crypto.randomUUID(), x: 50, y: 50, text: '', 
+      imageUrl, color: imageUrl ? '#fff' : '#ffeba7', 
+      width: 200, height: 200 
+    });
   }
+
   function removeNote(id: string) {
     const idx = char.investigationNotes.findIndex(n => n.id === id);
     if (idx !== -1) char.investigationNotes.splice(idx, 1);
   }
+
   function updateNotePosition(id: string, x: number, y: number) {
     const note = char.investigationNotes.find(n => n.id === id);
     if (note) { note.x = x; note.y = y; }
@@ -170,6 +197,7 @@ export const useCharacterStore = defineStore('character', () => {
     const note = char.investigationNotes.find(n => n.id === id);
     if (note) note.color = color;
   }
+
   function exportCharacter() {
     const blob = new Blob([JSON.stringify(char, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -180,8 +208,9 @@ export const useCharacterStore = defineStore('character', () => {
   return {
     char, dbId, isSaving, characterList, fetchList, selectCharacter, createNewCharacter, deleteCharacter, closeSheet,
     maxLoad, currentLoad, sizeZeroCount,
-    addItem, removeItem, toggleEquipped, updateItemQuantity, // Exportada agora!
+    addItem, removeItem, toggleEquipped, updateItemQuantity,
     addRdSource, removeRdSource, addAttack, removeAttack, addSkill, removeSkill,
-    addCondition, removeCondition, addPower, removePower, addNote, removeNote,exportCharacter,updateNotePosition, updateNoteColor,
+    addCondition, removeCondition, addPower, removePower, addNote, removeNote,
+    exportCharacter, updateNotePosition, updateNoteColor,
   };
 });
