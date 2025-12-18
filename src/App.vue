@@ -89,7 +89,7 @@ onMounted(() => {
             class="dock-item logout" 
             title="Sair"
           >
-            <v-icon name="hi-solid-logout" scale="1.1" />
+            <v-icon name="gi-exit-door" scale="1.1" />
           </button>
         </div>
 
