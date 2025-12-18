@@ -12,12 +12,12 @@ export const useCharacterStore = defineStore('character', () => {
   let isInternalUpdate = false;
 
   const defaultChar: CharacterData = {
-    name: 'Novo Personagem',
+    name: 'Personagem',
     playerName: '',
     characterImage: null,
-    stats: { body: 1, senses: 1, mind: 1, soul: 1 },
-    hp: { current: 10, max: 10 },
-    determination: { current: 3, max: 3 },
+    stats: { body: 0, senses: 0, mind: 0, soul: 0 },
+    hp: { current: 0, max: 0 },
+    determination: { current: 0, max: 0 },
     rd: { sources: [{ name: 'Base', value: 0 }], blockBonus: 0 },
     block: 0,
     skills: [],

@@ -1,13 +1,26 @@
 <script setup lang="ts">
-import { onMounted, inject } from 'vue';
+import { onMounted, inject, ref, computed } from 'vue';
 import { useCharacterStore } from '../stores/characterStore';
 import { useUiStore } from '../stores/uiStore';
 import CharacterCard from '../components/MyCharactersList/CharacterCard.vue';
+import SearchBar from '../components/Utils/SearchBar.vue';
 
 const store = useCharacterStore();
 const ui = useUiStore();
 
 const notify = inject('notify') as (msg: string, type: 'success'|'error') => void;
+
+// Busca reativa por nome
+const searchQuery = ref('');
+const normalized = (s: string) => (s || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+const filteredCharacters = computed(() => {
+    const q = normalized(searchQuery.value);
+    if (!q) return store.characterList;
+    return store.characterList.filter(c => normalized(c.name).includes(q));
+});
 
 // Lógica de Confirmação de Exclusão
 const handleDelete = async (id: number) => {
@@ -46,6 +59,12 @@ onMounted(() => {
 <div class="view-header">
 <h1>MEUS PERSONAGENS</h1>
 <p>SISTEMA DE GERENCIAMENTO DE FICHAS</p>
+<SearchBar
+    v-model="searchQuery"
+    :results-count="filteredCharacters.length"
+    placeholder="Buscar por nome de personagem..."
+    aria-label="Buscar personagem por nome"
+/>
 </div>
 <div class="char-grid">
 <button class="card create-card" @click="handleCreate">
@@ -53,7 +72,7 @@ onMounted(() => {
 <span>NOVO PERSONAGEM</span>
 </button>
 <CharacterCard 
-v-for="char in store.characterList" 
+v-for="char in filteredCharacters" 
 :key="char.id" 
 :character="char"
 @select="store.selectCharacter"
