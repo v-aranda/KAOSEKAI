@@ -1,0 +1,32 @@
+// src/styles/main.scss
+
+// 1. Importa as variáveis (Deve ser a primeira coisa)
+@import './theme/variables';
+
+// 2. Estilos de Base/Reset
+body, html {
+    margin: 0; 
+    padding: 0; 
+    
+    // Aplica a fonte padrão definida no SCSS
+    font-family: $font-default; 
+    
+    // Aplica as cores do tema (padrão é light)
+    background-color: var(--bg-app);
+    color: var(--text-primary); 
+    
+    height: 100%;
+}
+
+// Estilos de Elementos Padrão (para garantir que herdem as cores)
+h1, h2, h3, p, span, small {
+    color: inherit;
+}
+
+// Configurações básicas de formulário
+input, button {
+    font-family: inherit;
+    transition: all 0.1s;
+}
+
+// Você pode adicionar classes utilitárias aqui, se desejar.    

@@ -1,0 +1,86 @@
+// ----------------------------------------------------------------
+// 1. PALETA BASE (SCSS) - FÁCIL EDIÇÃO MANUAL
+// ----------------------------------------------------------------
+@import url('https://fonts.googleapis.com/css2?family=Caesar+Dressing&display=swap');
+
+// Tipografia
+$font-default: 'Share Tech Mono', monospace;
+$font-display: 'Caesar Dressing', sans-serif;
+
+// Cores Funcionais
+$color-success: #1a7a1a; // Verde para sucesso
+$color-error: #990000;   // Vermelho para erro (darker red)
+$color-warning: #cc8400; // Laranja para autosave
+
+// Cores Primárias (Mudar aqui para mudar o acento principal)
+$color-main: #00cccc;    // Ciano Brutalist
+$color-main-dark: #009999;
+$color-main-light: #ccffff;
+
+// Neutros de Estrutura
+$color-black: #000000;
+$color-white: #ffffff;
+$color-gray-50: #f0f0f0;   // Fundo do corpo (Claro)
+$color-gray-200: #e0e0e0;  // Fundo do footer/componentes cinza
+$color-gray-600: #555555;  // Texto secundário/Placeholder
+
+// ----------------------------------------------------------------
+// 2. TEMAS DINÂMICOS (Variáveis CSS Nativas)
+// ----------------------------------------------------------------
+
+// TEMA CLARO (Padrão: root ou data-theme='light')
+:root, [data-theme='light'] {
+
+    --font-display: #{$font-display};
+    // Fundo e Texto
+    --bg-app: #{$color-gray-50};
+    --bg-card: #{$color-white};
+    --bg-footer: #{$color-gray-200};
+    // ⬇️ NOVO: Fundo da Ficha (Sempre Claro)
+    --bg-sheet-paper: #{$color-white};
+    --color-focus-glow: #{$color-main};
+
+    --text-primary: #{$color-black};
+    --text-secondary: #{$color-gray-600};
+    // ⬇️ NOVO: Texto que deve ser claro em fundos escuros
+    --text-inverted: #{$color-white};
+    // ⬇️ NOVO: Texto que deve ser escuro em fundos claros
+    --text-on-light: #{$color-black};
+
+    // Estrutura
+    --border-main: #{$color-black};
+    --shadow-main: #{$color-black};
+
+    // Acentos e Funcionais
+    --color-accent: #{$color-main};          // Ciano
+    --color-accent-dark: #{$color-main-dark};
+    --color-success: #{$color-success};
+    --color-error: #{$color-error};
+    --color-warning: #{$color-warning};
+}
+
+// TEMA ESCURO (data-theme='dark')
+[data-theme='dark'] {
+    // Fundo e Texto (Inversão)
+    --bg-app: #111111;
+    --bg-card: #222222;
+    --bg-footer: #000000;
+    // ⬇️ Fundo da Ficha (Fixado em Claro)
+    --bg-sheet-paper: #{$color-white};
+    --color-focus-glow: #{$color-main};
+
+    --text-primary: #f0f0f0;  // Quase branco
+    --text-secondary: #aaaaaa;
+    // ⬇️ Texto que deve ser claro em fundos escuros
+    --text-inverted: #f0f0f0;
+    // ⬇️ Texto que deve ser escuro em fundos claros
+    --text-on-light: #{$color-black};
+
+    // Estrutura (Borda e Sombra do tema escuro)
+    --border-main: #{$color-main};  // Borda Ciano
+    --shadow-main: #{$color-main};  // Sombra Ciano
+
+    // Acentos e Funcionais
+    --color-accent: #{$color-main-light}; // Ciano claro para contraste
+    --color-accent-dark: #{$color-main};
+}
