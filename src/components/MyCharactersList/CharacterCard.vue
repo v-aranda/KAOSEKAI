@@ -45,8 +45,6 @@ const processOriginText = (text: string) => {
         </div>
 
         <div class="card-footer">
-            <small>ATT: {{ new Date(props.character.updated_at).toLocaleDateString() }}</small>
-
             <button class="delete-btn" @click.stop="emit('delete', props.character.id)" title="Excluir Personagem">
                 <v-icon name="gi-skull-crack" scale="1.4" />
             </button>
@@ -187,7 +185,7 @@ const processOriginText = (text: string) => {
     
     padding: 10px 15px;
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
 }
 
@@ -201,14 +199,14 @@ const processOriginText = (text: string) => {
     background: transparent;
     border: none;
     cursor: pointer;
-    color: var(--text-secondary);
+    color: var(--bg-footer);
     padding: 5px;
     display: flex;
     align-items: center;
     transition: color 0.2s;
 }
 
-.delete-btn:hover {
+.card:hover .delete-btn {
     color: var(--color-error);
     transform: scale(1.1);
 }

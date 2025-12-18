@@ -58,7 +58,7 @@ onMounted(() => {
 <div class="view-container">
 <div class="view-header">
 <h1>MEUS PERSONAGENS</h1>
-<p>SISTEMA DE GERENCIAMENTO DE FICHAS</p>
+<p>SUAS LENDAS NASCEM AQUI!</p>
 <SearchBar
     v-model="searchQuery"
     :results-count="filteredCharacters.length"

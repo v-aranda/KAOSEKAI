@@ -23,7 +23,7 @@ const handleLogin = async () => {
 
 <template>
 <div class="login-wrapper"><div class="login-card">
-      <div class="login-header"><h1>BEM-VINDO</h1><p>ACESSE O SISTEMA KAOSEKAI</p></div>
+      <div class="login-header"><h1>KAOSEKAI</h1><p>BEM VINDO AO CAOS</p></div>
         
       <div class="form-group"><label>E-MAIL</label><input v-model="email" type="email" placeholder="seu@email.com" :disabled="ui.isLoading"/></div>
 
@@ -110,7 +110,7 @@ input {
     padding: 12px;
     
     background-color: var(--color-accent); 
-    color: var(--text-primary); 
+    color: var(--text-on-light); 
     border: 2px solid var(--border-main);
     box-shadow: 3px 3px 0px var(--shadow-main);
     border-radius: 0;
@@ -122,6 +122,7 @@ input {
     
     &:hover { 
         background-color: var(--color-accent-dark); 
+        color: var(--text-on-light);
         transform: translate(-1px, -1px);
     }
     &:active {
