@@ -8,11 +8,15 @@ RUN npm run build
 
 # Estágio de Produção
 FROM nginx:stable-alpine AS production-stage
-# Remove a config padrão do Nginx
+
+# 1. Removemos QUALQUER configuração padrão que possa conflitar
 RUN rm /etc/nginx/conf.d/default.conf
-# Copia a sua config personalizada
+
+# 2. Copiamos a nossa configuração que aponta para /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-# Copia os arquivos da build para o lugar correto
+
+# 3. Limpamos a pasta de destino e copiamos os arquivos da build
+RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 EXPOSE 80
