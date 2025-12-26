@@ -4,37 +4,39 @@ import './styles/main.scss'
 import App from './App.vue'
 
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { 
+import {
   // ... outros ícones ...
-  GiHarpoonTrident,GiHarpoonChain,GiSpearHook,GiStoneSpear,GiBarbedSpear,GiTrident,GiCoiledNail,GiGlaive,
-  GiClawHammer,GiFlatHammer,GiThorHammer,GiWarhammer,
-  GiAxeSwing,GiBatteredAxe,GiBattleAxe,GiFireAxe,GiMagicAxe, GiSharpAxe,GiWarAxe,GiHatchet,GiTomahawk,
-  GiBroadsword,GiFragmentedSword,GiRelicBlade,GiBladeDrag,GiKatana,GiLightningSaber,GiGladius,GiStiletto,GiTwoHandedSword,
+  GiHarpoonTrident, GiHarpoonChain, GiSpearHook, GiStoneSpear, GiBarbedSpear, GiTrident, GiCoiledNail, GiGlaive,
+  GiClawHammer, GiFlatHammer, GiThorHammer, GiWarhammer,
+  GiAxeSwing, GiBatteredAxe, GiBattleAxe, GiFireAxe, GiMagicAxe, GiSharpAxe, GiWarAxe, GiHatchet, GiTomahawk,
+  GiBroadsword, GiFragmentedSword, GiRelicBlade, GiBladeDrag, GiKatana, GiLightningSaber, GiGladius, GiStiletto, GiTwoHandedSword,
   GiBowieKnife, GiBoneKnife, GiCurvyKnife, GiTrenchKnife, GiThrownKnife,
   GiHand,
-  GiSwapBag, 
-  GiHealthPotion, 
-  GiFlashlight, 
-  GiFirstAidKit, 
+  GiSwapBag,
+  GiHealthPotion,
+  GiFlashlight,
+  GiFirstAidKit,
   GiWaterBottle,
   GiBackpack,
   GiSkullCrack,
   FaSpinner,
-  HiSolidHome, HiSolidSun, HiSolidMoon, HiSolidLogout, FaSave, GiExitDoor
- 
+  HiSolidHome, HiSolidSun, HiSolidMoon, HiSolidLogout, FaSave, GiExitDoor,
+  GiCheckedShield, GiThreeFriends, GiGears
+
 } from "oh-vue-icons/icons";
 
 addIcons(
   // ...
-  GiHarpoonTrident,GiHarpoonChain,GiSpearHook,GiStoneSpear,GiBarbedSpear,GiTrident,GiCoiledNail,GiGlaive,
-  GiClawHammer,GiFlatHammer,GiThorHammer,GiWarhammer,
-  GiAxeSwing,GiBatteredAxe,GiBattleAxe,GiFireAxe,GiMagicAxe, GiSharpAxe,GiWarAxe,GiHatchet,GiTomahawk,
-  GiBroadsword,GiFragmentedSword,GiRelicBlade,GiBladeDrag,GiKatana,GiLightningSaber,GiGladius,GiStiletto,GiTwoHandedSword,
+  GiHarpoonTrident, GiHarpoonChain, GiSpearHook, GiStoneSpear, GiBarbedSpear, GiTrident, GiCoiledNail, GiGlaive,
+  GiClawHammer, GiFlatHammer, GiThorHammer, GiWarhammer,
+  GiAxeSwing, GiBatteredAxe, GiBattleAxe, GiFireAxe, GiMagicAxe, GiSharpAxe, GiWarAxe, GiHatchet, GiTomahawk,
+  GiBroadsword, GiFragmentedSword, GiRelicBlade, GiBladeDrag, GiKatana, GiLightningSaber, GiGladius, GiStiletto, GiTwoHandedSword,
   GiBoneKnife, GiBowieKnife, GiCurvyKnife, GiTrenchKnife, GiThrownKnife,
   GiHand, GiSwapBag, GiHealthPotion,
-   GiFlashlight, GiFirstAidKit,
-  GiWaterBottle, GiBackpack, GiSkullCrack , FaSpinner,
-  HiSolidHome, HiSolidSun, HiSolidMoon, HiSolidLogout, FaSave, GiExitDoor
+  GiFlashlight, GiFirstAidKit,
+  GiWaterBottle, GiBackpack, GiSkullCrack, FaSpinner,
+  HiSolidHome, HiSolidSun, HiSolidMoon, HiSolidLogout, FaSave, GiExitDoor,
+  GiCheckedShield, GiThreeFriends, GiGears
 
 );
 
