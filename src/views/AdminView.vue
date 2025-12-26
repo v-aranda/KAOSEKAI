@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import UsersManager from '../components/Admin/UsersManager.vue';
 
 const props = defineProps<{
   currentSubtopic: string;
@@ -23,10 +24,8 @@ const title = computed(() => {
     </header>
 
     <div class="admin-content">
-      <div v-if="currentSubtopic === 'users'" class="placeholder-section">
-        <v-icon name="gi-three-friends" scale="4" class="placeholder-icon" />
-        <h2>Gerenciamento de Usuários</h2>
-        <p>Funcionalidade em desenvolvimento...</p>
+      <div v-if="currentSubtopic === 'users'" class="content-section">
+        <UsersManager />
       </div>
 
       <div v-else-if="currentSubtopic === 'settings'" class="placeholder-section">
@@ -78,6 +77,15 @@ const title = computed(() => {
   align-items: center;
   justify-content: center;
   box-shadow: 4px 4px 0px var(--border-main);
+  overflow: hidden; /* Evita que a tabela vaze se for mt grande */
+}
+
+.content-section {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .placeholder-section {

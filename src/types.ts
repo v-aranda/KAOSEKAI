@@ -92,3 +92,12 @@ export interface CharacterData {
   inventory: InventoryItem[];
   credits: number;
 }
+// 8. Tipos para Usuários (Admin)
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  role: 'admin' | 'user'; 
+  created_at?: string;
+  password?: string; // Opcional, usado apenas na criação/edição
+}
