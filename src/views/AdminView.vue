@@ -9,8 +9,6 @@ const props = defineProps<{
 const title = computed(() => {
   switch (props.currentSubtopic) {
     case 'users': return 'Gerenciar Usuários';
-    case 'settings': return 'Configurações do Sistema';
-    case 'logs': return 'Logs do Sistema';
     default: return 'Painel Admin';
   }
 });
@@ -28,16 +26,11 @@ const title = computed(() => {
         <UsersManager />
       </div>
 
-      <div v-else-if="currentSubtopic === 'settings'" class="placeholder-section">
-        <v-icon name="gi-gears" scale="4" class="placeholder-icon" />
-        <h2>Configurações</h2>
-        <p>Ajuste os parâmetros globais do sistema aqui.</p>
-      </div>
-
+      <!-- Fallback just in case -->
       <div v-else class="placeholder-section">
         <v-icon name="gi-checked-shield" scale="4" class="placeholder-icon" />
         <h2>Bem-vindo, Admin</h2>
-        <p>Selecione uma opção no menu lateral.</p>
+        <p>Selecione uma opção.</p>
       </div>
     </div>
   </div>

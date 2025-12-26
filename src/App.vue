@@ -33,12 +33,12 @@ provide('notify', triggerToast);
 
 // --- Navegação ---
 const currentView = ref<'HOME' | 'SHEET' | 'ADMIN'>('HOME');
-const adminSubtopic = ref('dashboard');
+const adminSubtopic = ref('users');
 
 const navigateTo = (view: 'HOME' | 'SHEET' | 'ADMIN', subtopic?: string) => {
   if (view === 'ADMIN') {
     charStore.closeSheet(); // Garante que a ficha feche
-    adminSubtopic.value = subtopic || 'dashboard';
+    adminSubtopic.value = subtopic || 'users';
   } else if (view === 'HOME') {
     charStore.closeSheet();
   }
@@ -110,9 +110,7 @@ onMounted(() => {
             label="Admin"
             :isActive="currentView === 'ADMIN'"
             :subItems="[
-              { label: 'Painel', action: () => navigateTo('ADMIN', 'dashboard') },
-              { label: 'Usuários', action: () => navigateTo('ADMIN', 'users') },
-              { label: 'Configurações', action: () => navigateTo('ADMIN', 'settings') }
+              { label: 'Usuários', action: () => navigateTo('ADMIN', 'users') }
             ]"
           />
 
